@@ -1,0 +1,35 @@
+﻿@model List<ApiSeriesDto>
+@{
+    ViewData["Title"] = "En Popüler Diziler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-hover table-striped table-bordered">
+    @{
+        int index = 0;
+    }
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>#</th>
+            <th>Afiş</th>
+            <th>Dizi Adı</th>
+            <th>Yayınladığı Yıllar</th>
+            <th>Imdb Puanı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            index++;
+            <tr>
+                <th>@index</th>
+                <td><img src="@item.primaryImage" style="height:100px;width:auto"/></td>
+                <td>@item.primaryTitle</td>
+                <td>@item.startYear - @item.endYear</td>
+                <td>@item.averageRating</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

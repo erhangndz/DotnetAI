@@ -1,0 +1,31 @@
+﻿
+@model ChatResponseDto
+@{
+    ViewData["Title"] = "Open AI Chat";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Lütfen sorunuzu yazınız</label>
+        <input type="text" name="Prompt" value="@Model?.Prompt" class="form-control"/>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-outline-primary">Gönder</button>
+    </div>
+</form>
+
+@if (Model.Response!=null)
+{
+    <div class="alert alert-info">
+        <strong>Cevap:</strong>
+        <p>
+            @Model.Response
+        </p>
+    </div>
+}
+
+
+
