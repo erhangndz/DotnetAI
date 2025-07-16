@@ -28,7 +28,7 @@ namespace DotnetAI.WebUI.Controllers
                 var values = JsonSerializer.Deserialize<List<ApiSeriesDto>>(body);
                 return View(values);
             }
-            return View();
+        
         }
     }
 }

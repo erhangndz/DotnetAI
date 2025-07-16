@@ -11,6 +11,7 @@ namespace DotnetAI.WebUI.Extensions
 
             services.Configure<OpenAIOptions>(configuration.GetSection(nameof(OpenAIOptions)));
             services.Configure<WhisperAudioOptions>(configuration.GetSection(nameof(WhisperAudioOptions)));
+            services.Configure<DallEOptions>(configuration.GetSection(nameof(DallEOptions)));
 
             return services;
         }

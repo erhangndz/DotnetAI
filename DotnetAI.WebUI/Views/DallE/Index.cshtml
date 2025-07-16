@@ -1,0 +1,33 @@
+﻿@model DotnetAI.WebUI.DTOs.DallEDTos.DallEImageResponseDto
+@{
+    ViewData["Title"] = "Metinden Resim Üretme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Resim için Prompt Girin</label>
+        <input type="text" name="prompt" class="form-control"/>
+    </div>
+    
+
+    <button class="btn btn-outline-primary mt-2">Oluştur</button>
+</form>
+
+
+@if (Model !=null)
+{
+    <div class="alert alert-info">
+        
+     
+
+        @foreach (var item in Model.data)
+        {
+            <img src="@item.url" style="width:1024px;height:1024px"/>
+        }
+
+    </div>
+}
+

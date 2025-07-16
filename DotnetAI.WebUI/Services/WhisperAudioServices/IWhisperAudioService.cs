@@ -4,6 +4,6 @@ namespace DotnetAI.WebUI.Services.WhisperAudioServices
 {
     public interface IWhisperAudioService
     {
-        Task<WhisperTextResponseDto> ConvertAudioToTextAsync(IFormFile audioFile);
+        Task<WhisperResponseDto> ConvertAudioToTextAsync(IFormFile audioFile);
     }
 }

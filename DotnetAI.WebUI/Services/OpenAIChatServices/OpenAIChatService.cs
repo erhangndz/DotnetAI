@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace DotnetAI.WebUI.Services.OpenAIChatServices
 {
-    public class OpenAIChatService(IOptions<OpenAIOptions> openAIOptions,HttpClient client) : IOpenAIChatService
+    public class OpenAIChatService(HttpClient client) : IOpenAIChatService
     {
         
         public async Task<ChatResponseDto> SendPromptAsync(ChatResponseDto dto)

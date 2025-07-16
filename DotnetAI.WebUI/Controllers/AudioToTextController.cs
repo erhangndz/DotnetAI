@@ -1,9 +1,10 @@
 ﻿using DotnetAI.WebUI.DTOs.WhisperAudioDtos;
+using DotnetAI.WebUI.Services.WhisperAudioServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAI.WebUI.Controllers
 {
-    public class AudioToTextController : Controller
+    public class AudioToTextController(IWhisperAudioService audioService) : Controller
     {
         public IActionResult Index()
         {
@@ -11,9 +12,10 @@ namespace DotnetAI.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(AudioConvertRequestDto requestDto)
+        public async Task<IActionResult> Index(IFormFile audioFile)
         {
-            return View();
+            var response = await audioService.ConvertAudioToTextAsync(audioFile);
+            return View(response);
         }
     }
 }

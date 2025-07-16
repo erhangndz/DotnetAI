@@ -1,8 +1,10 @@
 ﻿namespace DotnetAI.WebUI.Options
 {
-    public class WhisperAudioOptions
+    public class DallEOptions
     {
+
         public string ApiKey { get; set; }
-        public string GeminiKey { get; set; }
+     
+
     }
 }

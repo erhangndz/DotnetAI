@@ -1,0 +1,31 @@
+﻿@model DotnetAI.WebUI.DTOs.WhisperAudioDtos.WhisperResponseDto
+@{
+    ViewData["Title"] = "Audio to Text";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <h3>Sesten Metne Çevirmek için Dosya Seçin</h3>
+        <label>Mp3 Dosyasını seçin</label>
+        <input type="file"  name="audioFile" />
+
+    </div>
+
+    <br />
+    <button class="btn btn-outline-primary">Dönüştür</button>
+</form>
+
+
+@if (Model != null)
+{
+<div class="alert alert-info">
+    <strong>Transkript: </strong>
+    <p>
+        @Model.text
+    </p>
+</div>
+}
+
