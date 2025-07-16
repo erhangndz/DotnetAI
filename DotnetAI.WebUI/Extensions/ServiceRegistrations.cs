@@ -1,4 +1,5 @@
 ﻿using DotnetAI.WebUI.Options;
+using DotnetAI.WebUI.Services.TesseractOcrServices;
 
 namespace DotnetAI.WebUI.Extensions
 {
@@ -12,6 +13,8 @@ namespace DotnetAI.WebUI.Extensions
             services.Configure<OpenAIOptions>(configuration.GetSection(nameof(OpenAIOptions)));
             services.Configure<WhisperAudioOptions>(configuration.GetSection(nameof(WhisperAudioOptions)));
             services.Configure<DallEOptions>(configuration.GetSection(nameof(DallEOptions)));
+
+            services.AddScoped<IOcrService, OcrService>();
 
             return services;
         }
