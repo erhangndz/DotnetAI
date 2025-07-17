@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Google Cloud Vision ile Resimden Metne Dönüştür";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <h3>Metin Analizi için Resim Dosyası Seçin</h3>
+        <label>Resim Dosyasını seçin</label>
+        <input type="file" name="imageFile" />
+
+    </div>
+
+    <br />
+    <button class="btn btn-outline-primary">Analiz Et</button>
+</form>
+
+
+@if (ViewBag.response != null)
+{
+    <div class="alert alert-info">
+        <strong>Resimden Okunan Metin: </strong>
+        <p>
+            @ViewBag.response
+        </p>
+    </div>
+}

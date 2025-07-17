@@ -10,26 +10,20 @@ namespace DotnetAI.WebUI.Services.TesseractOcrServices
         {
             // Save the uploaded file to a temporary location
             var imagePath = Path.GetTempFileName();
-            using (var stream = new FileStream(imagePath, FileMode.Create))
+            await using (var stream = new FileStream(imagePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(stream);
             }
 
-            string tessDataPath = @"C:\tessdata";
+            var tessDataPath = @"C:\tessdata";
 
             try
             {
-                using (var engine = new TesseractEngine(tessDataPath, "eng", EngineMode.TesseractAndLstm))
-                {
-                    using (var img = Pix.LoadFromFile(imagePath))
-                    {
-                        using (var page = engine.Process(img))
-                        {
-                            string text = page.GetText();
-                            return text;
-                        }
-                    }
-                }
+                using var engine = new TesseractEngine(tessDataPath, "eng", EngineMode.Default);
+                using var img = Pix.LoadFromFile(imagePath);
+                using var page = engine.Process(img);
+                string text = page.GetText(); 
+                return text;
             }
             catch (Exception e)
             {
