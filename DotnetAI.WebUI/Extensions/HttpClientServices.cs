@@ -2,6 +2,8 @@
 using DotnetAI.WebUI.Options;
 using DotnetAI.WebUI.Services.DallEServices;
 using DotnetAI.WebUI.Services.OpenAIChatServices;
+using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
+using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.WhisperAudioServices;
 
 namespace DotnetAI.WebUI.Extensions
@@ -15,6 +17,8 @@ namespace DotnetAI.WebUI.Extensions
             var openAiOptions = configuration.GetSection(nameof(OpenAIOptions)).Get<OpenAIOptions>();
             var whisperAudioOptions = configuration.GetSection(nameof(WhisperAudioOptions)).Get<WhisperAudioOptions>();
             var dallEOptions = configuration.GetSection(nameof(DallEOptions)).Get<DallEOptions>();
+            var openAiTranslateOptions = configuration.GetSection(nameof(OpenAITranslateOptions)).Get<OpenAITranslateOptions>();
+            var openAiTextToSpeechOptions = configuration.GetSection(nameof(OpenAITextToSpeechOptions)).Get<OpenAITextToSpeechOptions>();
 
             services.AddHttpClient<IOpenAIChatService, OpenAIChatService>(opt =>
             {
@@ -33,6 +37,18 @@ namespace DotnetAI.WebUI.Extensions
             services.AddHttpClient<IDallEService, DallEService>(opt =>
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {dallEOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<IOpenAiTranslateService, OpenAiTranslateService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiTranslateOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<IOpenAiTextToSpeechService, OpenAiTextToSpeechService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiTextToSpeechOptions.ApiKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 
