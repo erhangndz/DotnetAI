@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Metinden Duygu Analizi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Lütfen Duygu Analizi yapılacak metni yazınız</label>
+        <input type="text" name="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-primary">Analiz Et</button>
+    </div>
+</form>
+
+
+@if (ViewBag.response != null)
+{
+    <div class="alert alert-info mt-2">
+        <strong>Yazılan Metin:</strong>
+        <p>
+            @ViewBag.text
+        </p>
+
+
+        <strong>Analiz Sonucu:</strong>
+        <p>
+            @ViewBag.response
+        </p>
+    </div>
+}
