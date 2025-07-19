@@ -1,0 +1,44 @@
+﻿ @model DotnetAI.WebUI.DTOs.SentimentalDegreeDtos.SentimentalDegreeResponseDto 
+@{
+    ViewData["Title"] = "Gelişmiş Duygu Analizi ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Lütfen Gelişmiş Duygu Analizi yapılacak metni yazınız</label>
+        <input type="text" name="text" class="form-control" />
+        <span class="text-danger">@Html.ValidationSummary()</span>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-primary">Analiz Et</button>
+    </div>
+</form>
+
+
+@if (Model != null)
+{
+    <div class="alert alert-info mt-2">
+        <strong>Yazılan Metin:</strong>
+        <p>
+            @ViewBag.text
+        </p>
+
+
+        <strong>Analiz Sonucu:</strong>
+        <ul>
+            
+            <li> <strong>Kızgınlık Oranı :</strong> @Model.anger %</li>
+            <li> <strong>Korku Oranı :</strong> @Model.fear %</li>
+            <li> <strong>Mutluluk Oranı :</strong> @Model.joy %</li>
+            <li> <strong>Üzüntü Oranı :</strong> @Model.sadness %</li>
+            <li> <strong>Şaşkınlık Oranı :</strong> @Model.surprised %</li>
+            <li> <strong>Nötr Oranı :</strong> @Model.neutral %</li>
+            <li> <strong>Hakaret/Küfür İçeriyor mu :</strong> @(Model.hasHateSpeech =="Yes"? "Evet" : "Hayır")</li> 
+        </ul>
+
+    </div>
+}

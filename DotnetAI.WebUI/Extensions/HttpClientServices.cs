@@ -5,6 +5,7 @@ using DotnetAI.WebUI.Services.OpenAIChatServices;
 using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.SentimentAIServices;
+using DotnetAI.WebUI.Services.SentimentalDegreeServices;
 using DotnetAI.WebUI.Services.WhisperAudioServices;
 
 namespace DotnetAI.WebUI.Extensions
@@ -21,6 +22,7 @@ namespace DotnetAI.WebUI.Extensions
             var openAiTranslateOptions = configuration.GetSection(nameof(OpenAITranslateOptions)).Get<OpenAITranslateOptions>();
             var openAiTextToSpeechOptions = configuration.GetSection(nameof(OpenAITextToSpeechOptions)).Get<OpenAITextToSpeechOptions>();
             var sentimentAiOptions = configuration.GetSection(nameof(SentimentAiOptions)).Get<SentimentAiOptions>();
+            var sentimentalDegreeOptions = configuration.GetSection(nameof(SentimentalDegreeOptions)).Get<SentimentalDegreeOptions>();
 
             services.AddHttpClient<IOpenAIChatService, OpenAIChatService>(opt =>
             {
@@ -57,6 +59,12 @@ namespace DotnetAI.WebUI.Extensions
             services.AddHttpClient<ISentimentAiService, SentimentAiService>(opt =>
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {sentimentAiOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<ISentimentalDegreeService, SentimentalDegreeService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {sentimentalDegreeOptions.ApiKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 
