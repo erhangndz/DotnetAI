@@ -6,16 +6,17 @@ using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.SentimentAIServices;
 using DotnetAI.WebUI.Services.SentimentalDegreeServices;
+using DotnetAI.WebUI.Services.SummarizeArticleServices;
 using DotnetAI.WebUI.Services.WhisperAudioServices;
 
 namespace DotnetAI.WebUI.Extensions
 {
     public static class HttpClientServices
     {
-        
-        public static IServiceCollection AddHttpClientServicesExt(this IServiceCollection services,IConfiguration configuration)
+
+        public static IServiceCollection AddHttpClientServicesExt(this IServiceCollection services, IConfiguration configuration)
         {
-           
+
             var openAiOptions = configuration.GetSection(nameof(OpenAIOptions)).Get<OpenAIOptions>();
             var whisperAudioOptions = configuration.GetSection(nameof(WhisperAudioOptions)).Get<WhisperAudioOptions>();
             var dallEOptions = configuration.GetSection(nameof(DallEOptions)).Get<DallEOptions>();
@@ -23,10 +24,11 @@ namespace DotnetAI.WebUI.Extensions
             var openAiTextToSpeechOptions = configuration.GetSection(nameof(OpenAITextToSpeechOptions)).Get<OpenAITextToSpeechOptions>();
             var sentimentAiOptions = configuration.GetSection(nameof(SentimentAiOptions)).Get<SentimentAiOptions>();
             var sentimentalDegreeOptions = configuration.GetSection(nameof(SentimentalDegreeOptions)).Get<SentimentalDegreeOptions>();
+            var summarizeArticleOptions = configuration.GetSection(nameof(SummarizeArticleOptions)).Get<SummarizeArticleOptions>();
 
             services.AddHttpClient<IOpenAIChatService, OpenAIChatService>(opt =>
             {
-                opt.DefaultRequestHeaders.Add("Authorization",$"Bearer {openAiOptions.OpenRouterKey}");
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenRouterKey}");
                 //opt.BaseAddress = new Uri("https://api.openai.com/v1/chat/completions");
                 opt.BaseAddress = new Uri("https://openrouter.ai/api/v1/chat/completions");
             });
@@ -65,6 +67,12 @@ namespace DotnetAI.WebUI.Extensions
             services.AddHttpClient<ISentimentalDegreeService, SentimentalDegreeService>(opt =>
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {sentimentalDegreeOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<ISummarizeArticleService, SummarizeArticleService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization",$"Bearer {summarizeArticleOptions.ApiKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 

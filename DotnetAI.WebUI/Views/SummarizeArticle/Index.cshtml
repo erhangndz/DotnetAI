@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Metin Özetleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Lütfen özetlenecek metni/makaleyi yazınız</label>
+    <textarea type="text" name="text" class="form-control" rows="10" ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Özet Uzunluğunu Seçin</label>
+        <select name="level" required="" class="form-control">
+            <option selected disabled>Uzunluğu Seçiniz</option>
+            <option value="short">Kısa</option>
+            <option value="medium">Orta</option>
+            <option value="detailed">Detaylı</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-primary">Özetle</button>
+    </div>
+</form>
+
+
+@if (ViewBag.response != null)
+{
+    <div class="alert alert-info mt-2">
+        <strong>Orijinal Metin:</strong>
+        <p>
+            @ViewBag.text
+        </p>
+
+
+        <strong>
+            @if (ViewBag.level == "short")
+            {
+                <span>Kısa</span>
+            }
+            @if (ViewBag.level == "medium")
+            {
+                <span>Orta Uzunlukta</span>
+            }
+            @if (ViewBag.level == "detailed")
+            {
+                <span>Detaylı</span>
+            }
+        Özet:
+    </strong>
+    <p>
+        @ViewBag.response
+    </p>
+</div>
+}
