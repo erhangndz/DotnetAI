@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Open AI ile Web Sayfası Analizi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Lütfen Analiz edilecek url adresini yazınız</label>
+        <input type="url" name="url" class="form-control"  required/>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-primary">Analiz Et</button>
+    </div>
+</form>
+
+
+@if (ViewBag.response != null)
+{
+    <div class="alert alert-info mt-2">
+        <strong>Analiz Edilen Url:</strong>
+        <p>
+            @ViewBag.url
+        </p>
+
+
+        <strong>Web Sayfasının Analizi:</strong>
+        <p>
+            @ViewBag.response
+        </p>
+    </div>
+}
