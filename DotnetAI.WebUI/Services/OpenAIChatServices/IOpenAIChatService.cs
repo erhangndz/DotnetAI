@@ -4,6 +4,6 @@ namespace DotnetAI.WebUI.Services.OpenAIChatServices
 {
     public interface IOpenAIChatService
     {
-        Task<ChatResponseDto> SendPromptAsync(ChatResponseDto dto);
+        Task<OpenAIChatRequestDto> SendPromptAsync(OpenAIChatRequestDto dto);
     }
 }

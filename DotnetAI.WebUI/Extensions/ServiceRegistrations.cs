@@ -25,6 +25,14 @@ namespace DotnetAI.WebUI.Extensions
             services.AddScoped<ITextToSpeechService, TextToSpeechService>();
             services.AddScoped<SpeechSynthesizer>();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             return services;
         }
 

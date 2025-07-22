@@ -4,6 +4,7 @@ using DotnetAI.WebUI.Services.DallEServices;
 using DotnetAI.WebUI.Services.OpenAIChatServices;
 using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
+using DotnetAI.WebUI.Services.PdfAnalyzeServices;
 using DotnetAI.WebUI.Services.SentimentAIServices;
 using DotnetAI.WebUI.Services.SentimentalDegreeServices;
 using DotnetAI.WebUI.Services.SummarizeArticleServices;
@@ -27,12 +28,13 @@ namespace DotnetAI.WebUI.Extensions
             var sentimentalDegreeOptions = configuration.GetSection(nameof(SentimentalDegreeOptions)).Get<SentimentalDegreeOptions>();
             var summarizeArticleOptions = configuration.GetSection(nameof(SummarizeArticleOptions)).Get<SummarizeArticleOptions>();
             var webScrapingOptions = configuration.GetSection(nameof(WebScrapingOptions)).Get<WebScrapingOptions>();
+            var pdfAnalyzeOptions = configuration.GetSection(nameof(PdfAnalyzeOptions)).Get<PdfAnalyzeOptions>();
 
             services.AddHttpClient<IOpenAIChatService, OpenAIChatService>(opt =>
             {
-                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenRouterKey}");
-                //opt.BaseAddress = new Uri("https://api.openai.com/v1/chat/completions");
-                opt.BaseAddress = new Uri("https://openrouter.ai/api/v1/chat/completions");
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenAIKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+                //opt.BaseAddress = new Uri("https://openrouter.ai/api/v1/chat/completions");
             });
 
             services.AddHttpClient<IWhisperAudioService, WhisperAudioService>(opt =>
@@ -81,6 +83,12 @@ namespace DotnetAI.WebUI.Extensions
             services.AddHttpClient<IWebScrapingService, WebScrapingService>(opt =>
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {webScrapingOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<IPdfAnalyzeService, PdfAnalyzeService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {pdfAnalyzeOptions.ApiKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 
