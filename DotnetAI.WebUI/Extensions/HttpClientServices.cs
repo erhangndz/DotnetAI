@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using DotnetAI.WebUI.Options;
 using DotnetAI.WebUI.Services.DallEServices;
+using DotnetAI.WebUI.Services.GoogleCloudImageDetectionServices;
 using DotnetAI.WebUI.Services.OpenAIChatServices;
 using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
@@ -29,6 +30,8 @@ namespace DotnetAI.WebUI.Extensions
             var summarizeArticleOptions = configuration.GetSection(nameof(SummarizeArticleOptions)).Get<SummarizeArticleOptions>();
             var webScrapingOptions = configuration.GetSection(nameof(WebScrapingOptions)).Get<WebScrapingOptions>();
             var pdfAnalyzeOptions = configuration.GetSection(nameof(PdfAnalyzeOptions)).Get<PdfAnalyzeOptions>();
+
+            var googleCloudVisionOptions = configuration.GetSection(nameof(GoogleCloudVisionOptions)).Get<GoogleCloudVisionOptions>();
 
             services.AddHttpClient<IOpenAIChatService, OpenAIChatService>(opt =>
             {
@@ -90,6 +93,12 @@ namespace DotnetAI.WebUI.Extensions
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {pdfAnalyzeOptions.ApiKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<IImageDetectionService, ImageDetectionService>(opt =>
+            {
+         
+                opt.BaseAddress = new Uri($"https://vision.googleapis.com/v1/images:annotate?key={googleCloudVisionOptions.ApiKey}");
             });
 
 
