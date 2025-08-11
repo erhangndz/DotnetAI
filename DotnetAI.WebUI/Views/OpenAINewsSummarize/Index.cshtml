@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Son Haber Özetleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="alert alert-warning">
+
+    <strong>Son Haber Özetleri</strong>
+    @if(ViewBag.response !=null)
+    {
+        <ul>
+            @foreach (var item in ViewBag.response as List<string>)
+            {
+                <li class="mt-2">
+                    @item
+                </li>
+            }
+            
+
+        </ul>
+    }
+    else
+    {
+        <h5>Haberler Çekilirken Hata Oluştu! </h5>
+    }
+
+   
+  
+
+</div>

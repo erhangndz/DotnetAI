@@ -19,12 +19,19 @@
 </form>
 
 
-@if (ViewBag.response != null)
+@if (ViewBag.response is object)
 {
-    <div class="alert alert-info">
+    <div class="alert alert-info mt-2">
         <strong>Resmin Analizi: </strong>
-        <p>
-            @ViewBag.response
-        </p>
+        <ul>
+
+        @foreach (var item in ViewBag.response)
+        {
+            <li>
+                    % @item.score.ToString("P0") =>  @item.description
+            </li>
+        }
+        </ul>
+       
     </div>
 }

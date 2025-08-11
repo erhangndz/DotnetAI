@@ -1,12 +1,13 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using Newtonsoft.Json;
+using System.Text;
+
 
 namespace DotnetAI.WebUI.Services.GoogleCloudImageDetectionServices
 {
     public class ImageDetectionService(HttpClient client) : IImageDetectionService
     {
 
-        public async Task<string> DetectObjectsAsync(IFormFile imageFile)
+        public async Task<object> DetectObjectsAsync(IFormFile imageFile)
         {
             byte[] imageBytes;
 
@@ -37,17 +38,18 @@ namespace DotnetAI.WebUI.Services.GoogleCloudImageDetectionServices
                     }
                 }
             };
-            var jsonBody = JsonSerializer.Serialize(requestBody);
+            var jsonBody = JsonConvert.SerializeObject(requestBody);
 
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("", content);
 
             var responseString = await response.Content.ReadAsStringAsync();
+            var responseContent = JsonConvert.DeserializeObject<dynamic>(responseString);
 
             if (response.IsSuccessStatusCode)
             {
-                return responseString;
+                return responseContent.responses[0].labelAnnotations;
             }
 
             return $"Bir Hata Oluştu : {responseString}";

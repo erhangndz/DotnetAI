@@ -2,6 +2,6 @@
 {
     public interface IImageDetectionService
     {
-        Task<string> DetectObjectsAsync(IFormFile imageFile);
+        Task<object> DetectObjectsAsync(IFormFile imageFile);
     }
 }

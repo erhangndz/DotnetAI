@@ -3,6 +3,7 @@ using DotnetAI.WebUI.Options;
 using DotnetAI.WebUI.Services.DallEServices;
 using DotnetAI.WebUI.Services.GoogleCloudImageDetectionServices;
 using DotnetAI.WebUI.Services.OpenAIChatServices;
+using DotnetAI.WebUI.Services.OpenAINewsSummarizeServices;
 using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.PdfAnalyzeServices;
@@ -99,6 +100,12 @@ namespace DotnetAI.WebUI.Extensions
             {
          
                 opt.BaseAddress = new Uri($"https://vision.googleapis.com/v1/images:annotate?key={googleCloudVisionOptions.ApiKey}");
+            });
+
+            services.AddHttpClient<INewsSummarizeService, NewsSummarizeService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {pdfAnalyzeOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 
 
