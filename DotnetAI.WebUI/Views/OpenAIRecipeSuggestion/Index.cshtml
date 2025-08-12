@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Open AI ile Yemek Tarifi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label>Elinizdeki malzemeleri yazın <strong>(Aralara virgül koyarak istediğiniz kadar malzeme yazabilirsiniz.)</strong></label>
+        <input type="text" name="ingredients" class="form-control" />
+    </div>
+    <button class="btn btn-outline-primary">Oluştur</button>
+</form>
+
+
+@if (ViewBag.response != null)
+{
+<div class="alert alert-info mt-2">
+    <strong>Eldeki Malzemeler:</strong>
+    <p>
+        @ViewBag.ingredients
+    </p>
+
+
+    <strong> AI ile Önerilen Yemek Tarifi:</strong>
+    <p>
+        @ViewBag.response
+    </p>
+</div>
+}
+

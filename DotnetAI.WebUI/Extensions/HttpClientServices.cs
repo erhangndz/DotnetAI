@@ -7,6 +7,7 @@ using DotnetAI.WebUI.Services.OpenAINewsSummarizeServices;
 using DotnetAI.WebUI.Services.OpenAITextToSpeechServices;
 using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.PdfAnalyzeServices;
+using DotnetAI.WebUI.Services.RecipeSuggestionServices;
 using DotnetAI.WebUI.Services.SentimentAIServices;
 using DotnetAI.WebUI.Services.SentimentalDegreeServices;
 using DotnetAI.WebUI.Services.StoryMakingServices;
@@ -114,6 +115,13 @@ namespace DotnetAI.WebUI.Extensions
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenAIKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
+
+            services.AddHttpClient<IRecipeSuggestionService, RecipeSuggestionService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenAIKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
 
 
             return services;
