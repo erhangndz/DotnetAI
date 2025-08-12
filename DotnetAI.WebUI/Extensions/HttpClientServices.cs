@@ -9,6 +9,7 @@ using DotnetAI.WebUI.Services.OpenAITranslateServices;
 using DotnetAI.WebUI.Services.PdfAnalyzeServices;
 using DotnetAI.WebUI.Services.SentimentAIServices;
 using DotnetAI.WebUI.Services.SentimentalDegreeServices;
+using DotnetAI.WebUI.Services.StoryMakingServices;
 using DotnetAI.WebUI.Services.SummarizeArticleServices;
 using DotnetAI.WebUI.Services.WebScrapingServices;
 using DotnetAI.WebUI.Services.WhisperAudioServices;
@@ -105,6 +106,12 @@ namespace DotnetAI.WebUI.Extensions
             services.AddHttpClient<INewsSummarizeService, NewsSummarizeService>(opt =>
             {
                 opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {pdfAnalyzeOptions.ApiKey}");
+                opt.BaseAddress = new Uri("https://api.openai.com/v1/");
+            });
+
+            services.AddHttpClient<IStoryMakingService, StoryMakingService>(opt =>
+            {
+                opt.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAiOptions.OpenAIKey}");
                 opt.BaseAddress = new Uri("https://api.openai.com/v1/");
             });
 

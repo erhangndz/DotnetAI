@@ -1,0 +1,54 @@
+﻿
+@model CreateStoryDto
+@{
+    ViewData["Title"] = "Open AI ile Hikaye Oluşturma";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Ana Karakter Adı</label>
+        <input type="text" asp-for="MainCharacter" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Hikaye Nerede Geçiyor</label>
+        <input type="text" asp-for="Setting" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Hikaye Türü</label>
+        <select class="form-control" asp-for="Genre">
+            <option disabled selected >Hikaye Türünü Seçin</option>
+            <option value="Korku">Korku</option>
+            <option value="Komedi">Komedi</option>
+            <option value="Bilim Kurgu">Bilim Kurgu</option>
+            <option value="Fantastik">Fantastik</option>
+            <option value="Romantik">Romantik</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Uzunluk </label>
+        <select class="form-control" asp-for="Length">
+            <option disabled selected >Uzunluğu Seçin</option>
+            <option value="Kısa">Kısa</option>
+            <option value="Orta">Orta</option>
+            <option value="Uzun">Uzun</option>
+
+        </select>
+    </div>
+
+    <button class="btn btn-outline-primary">Oluştur</button>
+   
+</form>
+
+@if (ViewBag.response != null)
+{
+    <div class="alert alert-info mt-2">
+        <strong>Oluşturulan Hikaye : </strong>
+        <p>
+            @ViewBag.response
+        </p>
+    </div>
+}
